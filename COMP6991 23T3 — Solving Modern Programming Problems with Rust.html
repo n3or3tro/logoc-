@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>
+        COMP6991 23T3 —
+        Solving Modern Programming Problems with Rust
+    </title>
+
+    <link rel="canonical" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/">
+    
+    <link rel="shortcut icon" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/static/staging-favicon.jpg?1697510109479" type="image/x-icon">
+    
+
+    <link rel="stylesheet" href="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/bootstrap.min.css" integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/course.css">
+    
+    <script src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/popper.min.js" integrity="sha256-/ijcOLwFf26xEYAjW75FizKVo5tnTYiQddPZoLUHHZ8=" crossorigin="anonymous"></script>
+    <script src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/bootstrap.min.js" integrity="sha256-OFRAJNoaD8L3Br5lglV7VyLRf0itmoBzWUoM+Sji4/8=" crossorigin="anonymous"></script>
+
+    <!-- <script async src="https://static.codepen.io/assets/embed/ei.js"></script> -->
+
+    <!-- MathJax. -->
+    
+
+    
+<link rel="stylesheet" href="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/bootstrap-toc.min.css">
+<!-- add after bootstrap.min.js -->
+<script src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/bootstrap-toc.min.js"></script>
+
+
+    
+<script type="text/javascript" async="" src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="d-flex flex-column" style="min-height: 100vh;"><div id="MathJax_Message" style="display: none;"></div>
+
+<main class="container" aria-label="Content" style="flex: 1; padding-top: 4rem;">
+    <div class="row">
+        <nav id="contentbar" class="bg-light sidebar col-lg-3 hidden-contentbar">
+            <div class="sidebar-sticky pt-3">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-muted">
+                    Important Links
+                </h6>
+
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="d-flex nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/forum/" target="_blank">
+                            Course Forum
+                            <img style="color: black;" onload="this.style.color=&#39;black&#39;" class="justify-content-between" src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/new_tab_icon.png" width="20" height="20" alt="open in new tab">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="d-flex nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/outline" target="_blank">
+                            Course Outline
+                            <img style="color: black;" onload="this.style.color=&#39;black&#39;" class="justify-content-between" src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/new_tab_icon.png" width="20" height="20" alt="open in new tab">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/blog_posts">
+                            Blog Posts 
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/timetable">
+                            Course Timetable
+                        </a>
+                    </li>
+                </ul><h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    Resources
+                </h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" type="button" data-toggle="collapse" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#home-computing">
+                            Home Computing
+                        </a>
+                        <div class="collapse" id="home-computing">
+                            <div class="card card-body" style="padding: 0.5rem">
+                                
+                                <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/resources/rust-toolchain">
+                                Installing the Rust toolchain
+                                </a>
+                                <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/resources/editor-vscode">
+                                Writing Rust in VS Code
+                                </a>
+                                <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/resources/editor-neovim">
+                                Writing Rust in Neovim
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lectures">
+                            Lectures
+                        </a>
+                    </li>
+					
+                </ul>
+
+                
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        Assignments
+                    </h6>
+
+                      
+                          
+                              <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01">
+                                  Assignment 1
+                              </a>
+                          
+                      
+                
+
+
+                
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        Week by Week
+                    </h6>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                                <a class="nav-link" type="button" data-toggle="collapse" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#week00">
+                                    Week 00
+                                </a>
+                                <div class="collapse " id="week00">
+                                    <div class="card card-body" style="padding: 0.5rem">
+                                        
+                                            
+                                                
+                                            
+                                        
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/00/questions">
+                                                        Weekly Exercises
+                                                    </a>
+                                                    
+                                                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/00/answers">
+                                                            Exercise Answers
+                                                        </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        <li class="nav-item">
+                                <a class="nav-link" type="button" data-toggle="collapse" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#week01">
+                                    Week 01
+                                </a>
+                                <div class="collapse " id="week01">
+                                    <div class="card card-body" style="padding: 0.5rem">
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/revision/01/questions">
+                                                        Revision Questions
+                                                    </a>
+                                                    
+                                                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/revision/01/answers">
+                                                            Revision Answers
+                                                        </a>
+                                                    
+                                                
+                                            
+                                        
+                                        
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/01/questions">
+                                                        Weekly Exercises
+                                                    </a>
+                                                    
+                                                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/01/answers">
+                                                            Exercise Answers
+                                                        </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/workshop/01/questions">
+                                                        Workshop Questions
+                                                    </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        <li class="nav-item">
+                                <a class="nav-link" type="button" data-toggle="collapse" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#week02">
+                                    Week 02
+                                </a>
+                                <div class="collapse " id="week02">
+                                    <div class="card card-body" style="padding: 0.5rem">
+                                        
+                                            
+                                                
+                                            
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/02/questions">
+                                                        Weekly Exercises
+                                                    </a>
+                                                    
+                                                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/02/answers">
+                                                            Exercise Answers
+                                                        </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/workshop/02/questions">
+                                                        Workshop Questions
+                                                    </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        <li class="nav-item">
+                                <a class="nav-link" type="button" data-toggle="collapse" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#week03">
+                                    Week 03
+                                </a>
+                                <div class="collapse " id="week03">
+                                    <div class="card card-body" style="padding: 0.5rem">
+                                        
+                                            
+                                                
+                                            
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/03/questions">
+                                                        Weekly Exercises
+                                                    </a>
+                                                    
+                                                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/03/answers">
+                                                            Exercise Answers
+                                                        </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/workshop/03/questions">
+                                                        Workshop Questions
+                                                    </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        <li class="nav-item">
+                                <a class="nav-link" type="button" data-toggle="collapse" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#week04">
+                                    Week 04
+                                </a>
+                                <div class="collapse " id="week04">
+                                    <div class="card card-body" style="padding: 0.5rem">
+                                        
+                                            
+                                                
+                                            
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/04/questions">
+                                                        Weekly Exercises
+                                                    </a>
+                                                    
+                                                        <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/04/answers">
+                                                            Exercise Answers
+                                                        </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/workshop/04/questions">
+                                                        Workshop Questions
+                                                    </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        <li class="nav-item">
+                                <a class="nav-link" type="button" data-toggle="collapse" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#week05">
+                                    Week 05
+                                </a>
+                                <div class="collapse  show " id="week05">
+                                    <div class="card card-body" style="padding: 0.5rem">
+                                        
+                                            
+                                                
+                                            
+                                        
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/lab/05/questions">
+                                                        Weekly Exercises
+                                                    </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                            
+                                        
+                                            
+                                                
+                                                    <a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/workshop/05/questions">
+                                                        Workshop Questions
+                                                    </a>
+                                                    
+                                                
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                            
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        
+                    </ul>
+                
+
+                <ul class="nav flex-column">
+
+                </ul>
+
+                <div class="pb-3"></div>
+            </div>
+        </nav>
+        <div class="col-md ml-sm-auto col-lg px-md-4">
+            
+
+                <header>
+                    
+  <h1 class="text-center course-title" id="assignment-1">Assignment 1</h1>
+
+                </header>
+
+                
+
+<style>
+    h1::before,h2::before {
+      content: '';
+      display: block;
+      height:      50px;
+      margin-top: -50px;
+      visibility: hidden;
+    }
+
+    #toc {
+      position: -webkit-sticky; /* Safari */
+      position: sticky;
+      top: 70px;
+    }
+
+    main[aria-label="Content"] {
+        max-width: 70rem;
+    }
+</style>
+
+<div class="row" id="assignment-body">
+<div class="col-lg-10 col-12">
+
+
+
+
+
+
+<section class="exercise">
+    <header><h3><small style="font-variant: small-caps; text-transform: lowercase;">
+        
+        
+        Exercise:
+    </small>
+    <br>RSLogo</h3></header>
+
+    
+
+    
+    
+    <h3 id="changes">Change Log</h3>
+<ul>
+  <li>Assignment Released in draft form (2023-10-02)
+  </li>
+  <li>Updated some wording, increased the testing requirement on the TDD DE, and added deadline for UNSVG contributions. (2023-10-03)
+  </li>
+  <li>Added details on where you can use a variable in a MAKE command; where the stack is used (2023-10-04)
+  </li>
+  <li>Fixed some autotests, including simplifying 3_05_spiral (2023-10-05)
+  </li>
+  <li>Added reference to AND, which were in the tests but not explicitly mentioned in the text.
+    Clarified the behaviour of going off the image. Clarified in stage 4 that you still use
+    quotes. (2023-10-06)
+  </li>
+  <li>Clarified how the heading should work. (2023-10-09)
+  </li>
+  <li>Clarified the number of arguments that should be taken by user defined procedures. (2023-10-14)
+  </li>
+</ul>
+<h1 id="rslogo">RSLogo</h1>
+
+<div style="display: flex; justify-content: center;">
+<iframe width="560" height="315" src="./COMP6991 23T3 — Solving Modern Programming Problems with Rust_files/3aeolweGMYU.html" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+</div>
+
+<p>
+  Logo is a programming language derived from lisp and other programming
+  languages. Many older programmers' first experience of programming was writing
+  Logo. One of Logo's main features is its "turtle": a mechanism for picking up
+  and putting down a pen, and walking around to draw things.
+</p>
+<p>
+  Your task in this assignment will be to build a Logo interpreter, which writes
+  to a .svg or .png image. You will be provided with some sample programs, which
+  you are expected to implement correctly. If you pass these tests, and make a
+  good-faith attempt to accurately implement the described features, you will
+  get the marks for that section. There will be no surprising "hidden tests".
+  Should you have a question about the correct functionality of this program,
+  and the tests don't specifically answer it; you can assume it's undefined
+  behaviour which you can implement however you wish (without purposeful malice).
+</p>
+<p>
+  The goals of this assignment are:
+</p>
+<ol type="1">
+  <li>To get you to practice designing and structuring a larger Rust program.
+  </li>
+  <li>To focus as much as possible on skills and design patterns that would
+  actually be used when solving modern programming problems (i.e. writing a pull
+  request, writing re-usable code, etc.)
+  </li>
+  <li>To have fun creating an aesthetic and interesting application, and
+  connecting with the history of programming.
+  </li>
+</ol>
+<p>
+  We want to also be explicit about what the goals aren't:
+</p>
+<ol type="1">
+  <li>To assess your ability to write large amounts of useless cruft solely for
+  us to mark you on. Where you're writing code, we have a reason for it. Where
+  you're writing text, it's because we want to genuinely understand your
+  thinking.
+  </li>
+  <li>To assess your skills at programming language design. Our Logo dialect has been explicitly designed to be as
+  simple as possible, and we'll explain how to parse it (and give some hints on how to structure your interpreter).
+  </li>
+</ol>
+<p>
+  Importantly: <em>the big challenge of this assignment is how to design your
+  program</em>. There are no complicated algorithms (the most complicated thing
+  you may need to do is some recursion, or building a stack... and that's one of
+  the latest stages), and no "tricks" you've got to search for; but it will be
+  difficult to have all the functionality fit "neatly".
+</p>
+<p>
+  Part of this assignment involves submitting a <code>mark_request.txt</code> file.
+  This gives you an opportunity to talk about both design excellence, and limitations
+  in your design. If you can identify limitations in your design, we'll give you some
+  marks even where we would have otherwise taken them away, since noticing bad design
+  and learning from it is part of the challenge of the assignment.</p>
+
+<h2 id="an-introduction-to-the-logo-language">An Introduction to the logo language:</h2>
+<p>
+  A logo program consists of lines of text; which are then split up into tokens (whitespace-separated strings).
+  Lines starting with <code>//</code> (i.e.&nbsp;two slashes on their own) or empty lines should be ignored as comments.
+</p>
+<p>
+  A token can be one of three things:
+</p>
+<ul>
+  <li>A procedure: this is like a function, which can either be part of the interpreter, or implemented within the
+    logo file. For example, the <code>MAKE</code> procedure sets a variable to a given value. Some procedures take arguments
+    and some don't. In later stages of the assignment, we'll also see procedures which return a value.
+  </li>
+  <li>A variable: this is a token prefixed by a <code>:</code>, which means you should look up a variable with that
+  name. For example, <code>:MYVARIABLE</code> might have the value <code>"42"</code>
+  </li>
+  <li>A value: this is prefixed with a <code>"</code>, and indicates a raw string. All values in logo are stored as
+  strings.
+  </li>
+</ul>
+<p>
+  Procedures in Logo always take a fixed number of arguments. For example, <code>MAKE</code> always takes two
+  arguments.
+</p>
+<p>
+  Values in Logo are always strings. Some strings are special though: the strings <code>TRUE</code> and
+  <code>FALSE</code> are interpreted by some operations as booleans. Similarly, If the
+  <code>parse::&lt;f32&gt;</code> function can parse the string into a floating-point number; then the string can
+  be used as a number.
+</p>
+<p>
+  You can choose how you want to handle errors in the language. You can either pre-check for errors in the program
+  text; or you can just throw an error when you get to an irrecoverable error. The only requirements when you
+  encounter an error are that you:
+</p><ul>
+  <li>
+    Return with an exit code other than 0.
+  </li>
+  <li>
+
+    Print a descriptive error message. We
+  suggest that the error should include a relevant line (though since it's not always easy to say "what line did
+  the error occur on", this isn't a hard requirement).
+  </li>
+</ul>
+<p>
+  You must make sure that every token is used. For example, the <code>PENDOWN</code> command which you'll learn
+  about takes no arguments. If you were to write <code>PENDOWN 3</code>, that would be an error, since the
+  <code>3</code> means nothing.
+</p>
+
+<h2 id="an-introduction-to-unsvg">An Introduction to Unsvg</h2>
+
+<p>
+  In this assignment you will use the crate <a href="https://docs.rs/unsvg/latest/unsvg/">unsvg</a> to generate SVG or PNG image.
+  That crate contains two useful features:
+</p>
+<ul>
+  <li>
+    <code>unsvg::Image</code> which represents an image. It has methods like <code>draw_simple_line</code> which allow you
+    to draw your image. <b>NOTE: </b> <code>draw_simple_line</code> returns the end coordinates of the line. You do not
+    need to do any maths to work out where the line ends.
+  </li>
+  <li>
+    <code>unsvg::get_end_coordinates</code>, which returns where a line drawn from a given point would end.
+  </li>
+</ul>
+
+<h2 id="how-your-program-will-work">How your program will work</h2>
+<p>
+  You will produce a program called <code>rslogo</code>, which always takes four arguments:
+</p>
+<ul>
+  <li>a logo program file (these usually end in <code>.lg</code>).
+  </li>
+  <li>the path to the output SVG or PNG file (must end in <code>.svg</code> or <code>.png</code>)
+  </li>
+  <li>the height the image should be.
+  </li>
+  <li>the width the image should be.
+  </li>
+</ul>
+<p>
+  <a href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01/starter.tar" download="assn1_rslogo_starter.tar">We have provided you with starter code.</a> You should
+  use this code as a starting point for your assignment.
+</p><p>
+</p><p>
+  You can also run the command <code>6991 rslogo</code> to play with a sample solution.
+
+</p><p>
+  Your program should:
+</p><ol>
+  <li>Read the logo program.</li>
+  <li>Work line by line, parsing then executing the program.</li>
+  <li>Print an error, and then exit with a return code other than 0 if there's an issue.</li>
+  <li>If there are no issues, write an SVG or PNG using the <a href="https://docs.rs/unsvg/latest/unsvg/"><code>unsvg</code></a> crate.</li>
+</ol>
+<p></p>
+<p>
+  The starter code deals with the basics of command-line arguments and importing
+  the <code>unsvg</code> crate. You must use the <code>unsvg</code> crate to produce your images.
+</p>
+
+<h2 id="design-excellence">
+  Design Excellence
+</h2>
+
+<b>Skip this section unless you're sure you want full marks in the assignment!</b>
+
+<p>
+  Part of the goal of this course is to get you to think about how to write
+  truly great code. To this end, to get 100% in your "idiomatic design"
+  component, your code requires at least one aspect of "design excellence":
+  something that makes your design stand out from the crowd.
+</p>
+<p>
+  If you want to get full marks in this assignment (and it's OK if you don't!)
+  then as you go through each part of the assignment below, think about whether
+  you can do one of these tasks:
+</p>
+
+<ul>
+  <li>Make your errors beautiful. This means:
+    <ul>
+      <li>Your errors should be descriptive, and should include the text of the line that has a problem.</li>
+      <li>Your errors should provide a hint for what might be wrong, where it's feasible to do so.</li>
+      <li>Your errors should be colourful, making it obvious what the text is, and what the issue is. Take inspiration from the Rust error messages if you can.</li>
+      <li>You could (but don't have to) highlight where in the line the issue is, like Rust does.</li>
+      <li>You may want to consider making use of one of the following diagnostic reporting crates:</li>
+      <ul>
+        <li><a href="https://crates.io/crates/miette">miette</a></li>
+        <li><a href="https://crates.io/crates/ariadne">ariadne</a></li>
+        <li><a href="https://crates.io/crates/chumsky">chumsky</a></li>
+        <li><a href="https://crates.io/crates/annotate-snippets">annotate-snippets</a></li>
+        <li><a href="https://crates.io/crates/codespan-reporting">codespan-reporting</a></li>
+      </ul>
+    </ul>
+    This is "Design Excellence" because it requires structuring your program in a way
+    that you can easily report errors; and making your program more usable.
+  </li>
+  <li>Get 80% test coverage for your application. You could use a library like tarpaulin to calculate your test coverage.
+      Consider approaching this assignment in a Test-Driven Development style if you're aiming for this design excellence.
+    This is design excellence because it requires you to think about how to test your program,
+    and to design a testable program.
+  </li>
+  <li>Build a parser for <code>rslogo</code> that uses a parser combinator library (e.g. nom, winnow, chumsky).
+  </li><li>Create a facility for programmers to add a language extension. The idea is that they should only need to change
+      like 1 or 2 lines of code, and add a useful command (for example, a REPEAT command that's like a while loop;
+      or add trigonometric functions). Additionally, you should document all the public interfaces that are available
+	to a programmer. You can use <code>#[warn(missing_docs)])</code> to identify any interfaces that should be
+documented.
+  </li>
+  <li>Build your program so it is as close to zero-copy as possible. This is
+    design excellence because it requires you to think about how to write a
+    performant program, and to think about how to avoid allocating memory.
+  </li>
+  <li>Write, and create a Pull Request for, a meaningful contribution to
+    the <code>unsvg</code> library (can be documentation, a new feature, or a
+    bug fix). Before doing this, file an issue so we know what you're planning
+    on working on, and create a forum post requesting approval (so we can
+    determine whether your plan is "meaningful" enough to award marks).
+    This is design excellence because we think that a willingness
+    and knowledge of how to contribute features to a library is a really
+    important skill for a programmer to have, and generally improves the quality
+    of the downstream library. <b>You must file the issue before Friday Week 6,
+so we have time to review it</b>.
+  </li>
+  <li>(hard) build a transpiler for <code>rslogo</code> that
+  converts <code>rslogo</code> code to another language (e.g. Python,
+    JavaScript, C, Rust) in order to run it. This isn't necessarily design
+    excellence, but it'll force you into some interesting design challenges
+    that are worth exploring.
+  </li>
+  <li>We will happily add more design excellence things here,
+      however you need to run them past us first. If you have an idea,
+      please make a forum post reqeuesting approval!
+  </li>
+</ul>
+
+<p>
+  Note that when deciding if you've done "design excellence", markers won't be
+  following strict guidelines: a reasonable, good-faith attempt at one of these
+  tasks is enough. If you're not sure, ask us!
+</p>
+
+<h1 id="the-tasks-to-complete">The Tasks To Complete</h1>
+
+
+<h2 id="part-1-turtle-control-20">
+  Part 1: Turtle Control (20%)
+</h2>
+<small>Completing up to this section means you'll be able to get a maximum of 20% for the Idiomatic Design and Functional Correctness sections</small>
+<p>
+  The first thing we'll get working in this language is controlling the "turtle". The turtle is like an invisible
+  pen that can write on your image. It exists at particular coordinates. It starts "up" (i.e. not drawing),
+  but when you put it "down", then moving it should draw a line. The pen also has a colour, which starts as white.
+  The turtle starts facing straight up, in the center of the screen (note that if the image has odd dimensions, the
+  turtle can be at a floating-point location).
+</p>
+<p>
+  The turtle can go off the image. The turtle leaving the image should not cause an error. You do not need to do
+  any bounds-checking, or any special behaviour for the turtle leaving the image.
+</p>
+<p>
+  In this stage, you'll be required parse the following commands:
+</p>
+<ul>
+  <li>
+    <code>PENUP</code>
+  </li>
+  <li>
+    <code>PENDOWN</code>
+  </li>
+  <li>
+    <code>FORWARD [numpixels:f32]</code>
+  </li>
+  <li>
+    <code>BACK [numpixels:f32]</code>
+  </li>
+  <li>
+    <code>LEFT [numpixels:f32]</code>
+  </li>
+  <li>
+    <code>RIGHT [numpixels:f32]</code>
+  </li>
+  <li>
+    <code>SETPENCOLOR [colorcode:f32]</code>
+  </li>
+  <li>
+    <code>TURN [degrees:f32]</code>
+  </li>
+  <li>
+    <code>SETHEADING [degrees:f32]</code>
+  </li>
+  <li>
+    <code>SETX [location:f32]</code>
+  </li>
+  <li>
+    <code>SETY [location:f32]</code>
+  </li>
+</ul>
+<h4 id="penup-and-pendown">
+  <code>PENUP</code> and <code>PENDOWN</code>
+</h4>
+<p>
+  As described previously, the turtle can be in two states: "up" or "down". If the turtle is "up" (which is the
+  state it starts in), then it does not do any drawing. It can move around without affecting the image. If the
+  turtle is "down", it should draw a line wherever it travels.
+</p>
+
+<h4 id="forward-numpixels-back-numpixels-left-numpixels-right-numpixels.">
+  <code>FORWARD "[numpixels]</code>, <code>BACK "[numpixels]</code>, <code>LEFT "[numpixels]</code>, <code>RIGHT
+  "[numpixels]</code>.
+</h4>
+<p>
+  These commands move the turtle. Initially, "forward" means "up the screen", and "back" means "down the screen".
+  Once you implement the turn/set-heading commands, these commands are relative to the direction the turtle is
+  facing. The argument to this command must be a number. If you are unable to convert the argument to a number,
+  you should print an error and exit with a non-zero exit code.
+</p>
+<p>
+  If the turtle is "down", remember that these should also draw a line.
+</p>
+<p style="color: blue">
+  Note that the turtle is able to go off the image. You do not need to do any bounds-checking, or any special
+  behaviour for the turtle leaving the image. numpixels can also be negative, which means the turtle "reverses"
+  in that direction (i.e. <code>FORWARD "-10</code> goes back 10 pixels)
+</p>
+<h4 id="setpencolor-colorcode">
+  <code>SETPENCOLOR "[colorcode]</code>
+</h4>
+<p>
+  The pen starts by drawing white lines. This changes what color the pen draws.
+</p>
+<p>
+  The pen color can be one of 16 options. They are specified in the <code>COLORS</code> array of
+  <code>unsvg</code>. For example, <code>0</code> is black and <code>15</code> is grey.
+</p>
+<code>
+<pre class="logo">SETPENCOLOR "15
+
+SETPENCOLOR "Yeet
+... (prints an error about an invalid color)
+</pre>
+</code>
+<p>
+  It should be an error if the number is not an integer.
+</p>
+<h4 id="turn-degrees-and-setheading-degrees">
+  <code>TURN "[degrees]</code> and <code>SETHEADING "[degrees]</code>
+</h4>
+<p>
+  These commands can turn the turtle by a particular integer number of degrees, or set the heading to a particular
+  direction. The heading 0 is heading up the image, 90 is heading right; 180 is heading south, and 270 is heading
+  left. This means that a positive argument to <code>TURN</code> will turn the turtle clockwise, and a negative
+  argument will turn it counter-clockwise.
+</p>
+<p style="color: blue;">
+  Note that internally, you shouldn't normalise the heading. That is, if the turtle is facing 370 degrees, you should report
+  the turtle as facing 370 degrees, not 10 degrees.
+</p>
+<p>
+  Having anything other than an integer as the <code>degrees</code> here should cause an error.
+</p>
+<h4 id="setx-position-and-sety-position">
+  <code>SETX "[position]</code> and <code>SETY "[position]</code>
+</h4>
+<p>
+  These commands set the X and Y position of the turtle respectively. The position can be any floating point. Note that even if the turtle
+  is "down", these commands should not draw anything.
+</p>
+
+<h2 id="part-2-variables-and-queries-10">
+  Part 2: Variables and Queries (20%)
+</h2>
+
+<small>Completing up to this section means you'll be able to get a maximum of 40% for the Idiomatic Design and Functional Correctness sections</small>
+
+<h4 id="variables">
+  Variables
+</h4>
+<p>
+  The <code>MAKE</code> command in Logo is a procedure used to create and assign variables to values within the Logo
+  programming language. When you use <code>MAKE</code>, you specify a variable name followed by a value.
+  Logo then associates the variable with the provided value, effectively storing it for later use. This
+  enables programmers to store and manipulate data, facilitating the creation of more complex algorithms and
+  procedures. For example, <code>MAKE "x "10</code> would assign the variable <code>x</code> to have the value <code>10</code>, allowing
+  subsequent commands to reference and manipulate this value throughout the program's execution.
+</p>
+<p>
+  Additionally, you will need to implement the <code>ADDASSIGN</code> command. This is the equivalent of
+  <code>+=</code> in most programming languages. It should be given the name of an existing variable, a value to add, and try to
+  add the two together. It should be an error for the variable to not exist. It should also be an error if either
+  argument is not a number.
+</p>
+<p>
+  Variables have no scope, so once you create them they are available anywhere. Variables can also be overwritten.
+</p>
+<p>
+  You can then use a variable anywhere you could use a raw value. This includes
+  using variables as the value in a <code>MAKE</code> statement . For example,
+  these two programs should be equivalent:
+</p>
+<code>
+<pre class="logo">FORWARD "6
+</pre>
+</code>
+
+<code>
+<pre class="logo">MAKE "DISTANCE "3
+ADDASSIGN "DISTANCE :DISTANCE
+FORWARD :DISTANCE
+</pre>
+</code>
+
+<p></p>
+<h4 id="queries">
+  Queries
+</h4>
+<p>
+  Additionally, you should support "queries", which are procedures which "return" a value. They act very similarly
+  to variables; except they don't use <code>:</code>s at the start, and they are set automatically by the program.
+  The queries are:
+</p>
+<ul>
+  <li>
+    <code>XCOR</code>: return the current x coordinate.
+  </li>
+  <li>
+    <code>YCOR</code>: return the current y coordinate.
+  </li>
+  <li>
+    <code>HEADING</code>: return the current heading.
+  </li>
+  <li>
+    <code>COLOR</code>: return the color of the pen, as an number.
+  </li>
+</ul>
+
+<h2 id="part-3-ifs-while-20">
+  Part 3: IFs, WHILE, <code>[ ]</code> (20%)
+</h2>
+<small>Completing up to this section means you'll be able to get a maximum of 60% for the Idiomatic Design and Functional Correctness sections</small>
+
+<p>
+  One of the fundamental concepts in Logo is conditional execution and looping. To enhance the capabilities of your
+  Logo interpreter, you will implement two important commands: <code>IF</code> and <code>WHILE</code>. These
+  commands will help users to create more complex and dynamic drawings and programs.
+</p>
+<p>
+  In this section, you'll only be required to implement the <code>IF EQ</code> and <code>WHILE EQ</code> commands.
+  In a future section, we will explore more types of comparisons.
+</p>
+<h3 id="if-eq-command">
+  <code>IF EQ</code> Command
+</h3>
+<p>
+  The <code>IF EQ</code> command introduces conditional execution in Logo. It allows you to specify two values, and
+  if those two values are the same (i.e.&nbsp;they are identical strings), a specific block of code will be
+  executed. If they are not the same, the block of code should not execute.
+</p>
+<p>
+  In our dialect of Logo, this is what the command will look like:
+</p>
+<code>
+<pre class="logo">IF EQ &lt;value1&gt; &lt;value2&gt; [
+  &lt;line of code&gt;
+  &lt;line of code&gt;
+]</pre>
+</code>
+<ul>
+  <li>
+    <code>&lt;value1&gt;</code> and <code>&lt;value2&gt;</code>: These are the two values you'll be checking
+    whether are the same or different. They could be raw values, queries, or variables.
+  </li>
+  <li>
+    <code>&lt;line of code&gt;</code>: These are lines of code which should execute if the condition is true. Note
+    that this may contain more <code>IF</code> statements (or <code>WHILE</code>s).
+  </li>
+</ul>
+<h3 id="while-eq-command">
+  <strong>WHILE EQ Command</strong>
+</h3>
+<p>
+  The <code>WHILE EQ</code> command is identical to <code>IF EQ</code>, except that at the end of the block, you
+  should check the conditions again. If the conditions are again equal, you should repeat the block. The block
+  should be repeated continuously until the condition is false.
+</p>
+<code>
+<pre class="logo">WHILE EQ &lt;value1&gt; &lt;value2&gt; [
+  &lt;line of code&gt;
+  &lt;line of code&gt;
+]
+</pre>
+</code>
+<h2 id="part-4-implementing-maths-and-comparisons-using-a-stack-20">
+  Part 4: Implementing Maths and Comparisons using a Stack (20%)
+</h2>
+<small>Completing up to this section means you'll be able to get a maximum of 80% for the Idiomatic Design and Functional Correctness sections</small>
+<p>
+  In the world of computer programming and mathematical notation, there are multiple methods to represent and
+  evaluate mathematical expressions. One method used in programming languages like Logo is known as <strong>Polish
+  Notation</strong>. Polish Notation, also referred to as prefix notation, differs from the more traditional infix
+  notation by placing operators before their operands. In this section, we will delve into the concept of Polish
+  Notation, explore the idea of a stack, and introduce several fundamental mathematical operations in Logo,
+  including GT, LT, EQ, NE, +, -, *, and /.
+</p>
+<p>
+  In Logo, to write the equivalent of Rust's <code>3 + 4</code>, you should write: <code>+ "3 "4</code>. This is kind
+  of like calling <code>+(3, 4)</code>, where the <code>+</code> function adds two numbers together.
+</p>
+<p>
+  A more complicated expression in Logo would be <code>EQ * "3 "4 * + "3 "3 "2</code>. Rewriting this in the style
+  above, this is: <code>==(*(3, 4), *(+(3, 3), 2))</code>. Rewriting it again, it's <code>3 * 4 == (3 + 3) *
+  2</code>, which evaluates to <code>TRUE</code>.
+</p>
+<p>
+  The full list of operators in Logo are:
+</p>
+<ul>
+  <li>
+    <code>EQ &lt;arg1&gt; &lt;arg2&gt;</code>: returns <code>TRUE</code> if <code>arg1</code> is equal to
+    <code>arg2</code>, and <code>FALSE</code> otherwise. If either <code>arg1</code> or <code>arg2</code> is
+    neither a number nor a word, raise an error.
+  </li>
+  <li>
+    <code>NE &lt;arg1&gt; &lt;arg2&gt;</code>: returns <code>TRUE</code> if <code>arg1</code> is not equal to
+    <code>arg2</code>, and <code>FALSE</code> otherwise. If either <code>arg1</code> or <code>arg2</code> is
+    neither a number nor a word, raise an error.
+  </li>
+  <li>
+    <code>GT &lt;arg1&gt; &lt;arg2&gt;</code>: returns <code>TRUE</code> if <code>arg1</code> is greater than
+    <code>arg2</code>, and <code>FALSE</code> otherwise. If either <code>arg1</code> or <code>arg2</code> is not a
+    number, raise an error.
+  </li>
+  <li>
+    <code>LT &lt;arg1&gt; &lt;arg2&gt;</code>: returns <code>TRUE</code> if <code>arg1</code> is less than
+    <code>arg2</code>, and <code>FALSE</code> otherwise. If either <code>arg1</code> or <code>arg2</code> is not a
+    number, raise an error.
+  </li>
+  <li style="color: blue">
+    <code>AND &lt;arg1&gt; &lt;arg2&gt;</code>: returns <code>TRUE</code> if <code>arg1</code> and <code>arg2</code> are both <code>TRUE</code>, and <code>FALSE</code> otherwise. If either <code>arg1</code> or <code>arg2</code> is not a boolean, raise an error.
+  </li>
+  <li style="color: blue">
+    <code>OR &lt;arg1&gt; &lt;arg2&gt;</code>: returns <code>TRUE</code> if <code>arg1</code> or <code>arg2</code> is <code>TRUE</code>, and <code>FALSE</code> otherwise. If either <code>arg1</code> or <code>arg2</code> is not a boolean, raise an error.
+  </li>
+  <li>
+    <code>+ &lt;arg1&gt; &lt;arg2&gt;</code>: returns the result of adding <code>arg1</code> and <code>arg2</code>.
+    If either <code>arg1</code> or <code>arg2</code> is not a number, raise an error.
+  </li>
+  <li>
+    <code>- &lt;arg1&gt; &lt;arg2&gt;</code>: returns the result of subtracting <code>arg2</code> from
+    <code>arg1</code>. If either <code>arg1</code> or <code>arg2</code> is not a number, raise an error.
+  </li>
+  <li>
+    <code>* &lt;arg1&gt; &lt;arg2&gt;</code>: returns the result of multiplying <code>arg1</code> and
+    <code>arg2</code>. If either <code>arg1</code> or <code>arg2</code> is not a number, raise an error.
+  </li>
+  <li>
+    <code>/ &lt;arg1&gt; &lt;arg2&gt;</code>: returns the result of dividing <code>arg1</code> by
+    <code>arg2</code>. If either <code>arg1</code> or <code>arg2</code> is not a number, raise an error.
+    Additionally, if <code>arg2</code> is zero, raise an error to avoid division by zero.
+  </li>
+</ul>
+<p>
+  You should implement all of these operations such that they can be used anywhere a raw value or variable could be
+  used. Note that the arguments to these operations may themselves be more operations; values; or functions.
+</p>
+<p>
+  <strong>particularly, you will need to implement stack operations on <code>IF</code> and <code>WHILE</code>.</strong>
+</p>
+<p>
+  Also note that if the line doesn't make sense (i.e.&nbsp;you don't provide all the arguments) you should raise an
+  error.
+</p>
+<h2 id="part-5-logo-defined-procedures-20">
+  Part 5: Logo Defined Procedures (20%)
+</h2>
+<small>Completing up to this section means you'll be able to get a maximum of 100% for the Idiomatic Design and Functional Correctness sections</small>
+<p>
+  All good programming languages allow you to break down your code into smaller
+  pieces. Logo allows this through Procedures. These are analogous to functions
+  or subroutines in other programming languages. They allow for the
+  encapsulation of a series of Logo commands into a single named unit, making
+  the code more organized, reusable, and easier to manage.
+</p>
+<p>
+  The syntax for this in Logo is to have a line starting with <code>TO</code>, then name the procedure, and list
+  out its arguments. <span style="color: blue">Procedures could have any number of arguments (including 0 arguments)</span>. The procedure ends on the first line after that has the command <code>END</code>.
+</p>
+<code>
+<pre class="logo">TO DoSquare "arg1
+  FORWARD :arg1
+  LEFT :arg1
+  BACK :arg1
+  RIGHT :arg1
+END
+</pre>
+</code>
+<p>
+  Here are some important notes which make your life easier:
+</p>
+<ul>
+  <li>
+    Procedures in our Logo will always be defined on a line above where they're used.
+  </li>
+  <li>
+    A procedure will never call itself (i.e. procedures will not be recursive).
+  </li>
+  <li>
+  Procedures will never be defined inside <code>[]</code> (i.e. they won't be
+  conditionally defined).
+  </li>
+  <li>
+  Procedures will never be defined inside other procedures.
+  </li>
+  <li>
+  You do not need to worry about scope within procedures: at the end of the
+  procedure, the arguments to the procedure should not be changed or deleted.
+  </li>
+  <li>
+  Procedures will never be created with the same name.
+  </li>
+</ul>
+
+<h1 id="common-questions">
+  Common Questions
+</h1>
+<h2 id="how-can-i-design-this-assignment">
+  How can I design this assignment?
+</h2>
+<p>
+  There are two major approaches, both will work; however both have their own challenges.
+</p>
+<h3 id="line-by-line">
+  1. line-by-line
+</h3>
+<p>
+  This is the more "obvious" approach: you make a while loop which starts on line 1, and executes each line in
+  turn. As you go, you'll need to store more data and more state, and you'll need to do things like change what
+  line you're reading next in order to support if statements.
+</p>
+<h3 id="parse-then-execute">
+  2. parse then execute
+</h3>
+<p>
+  This approach is more like how modern programming languages approach executing a program. In this approach, you
+  convert the text into a datastructure called an "Abstract Syntax Tree". Then, rather than reading the text of the
+  Logo code directly; you build your system so it can read this tree and understand it.
+</p>
+<p>
+  This means that the line:
+</p>
+<code>
+</code><pre class="logo"><code>MAKE "VarName + 3 4
+</code>
+</pre>
+<p>
+  Might be represented in your program as:
+</p>
+<code>
+<pre class="logo">  MakeCommand(
+    String::from("VarName"),
+    Box::new(
+      Add(Box::new(Value(3)), Box::new(Value(4))
+    )
+  )
+</pre>
+</code>
+<p>
+  This can often result in a neater program, but it requires more effort and pre-planning.
+</p>
+<h2 id="how-much-should-i-plan-before-starting-the-assignment">
+  How much should I plan before starting the assignment?
+</h2>
+<p>
+  This is a large program, and one way of approaching the task is to make a plan for how you'll implement all the
+  functionality first. Another way of approaching the task is to just take it step by step, rewriting your code as
+  you go.
+</p>
+<p>
+  Both approaches will work for this assignment, and we expect both will take a similar amount of time.
+  Pre-planning takes effort, and then you may find your plan doesn't work as expected. Just diving in to the
+  programming may mean you have to rewrite swathes of code when a requirement you didn't fully understand comes
+  along.
+</p>
+<p>
+  We suggest a happy middle: think about what approach you're going to take, and read through the assignment. But
+  don't spend more than 30 mins planning your approach: you'll learn more from doing than from just thinking.
+</p>
+<h2 id="can-i-use-ai">Can I use AI?</h2>
+<p>
+  It's 2023, so many programmers are using AI assistants. In this assignment, you're permitted to use AI.
+  In fact, rather than telling you "don't use it", our answer is: "here's how to use it".
+</p>
+<h3 id="use-1-for-help-with-a-concept">
+  Use 1: For help with a concept
+</h3>
+<p>
+  If you've forgotten something, maybe try asking ChatGPT what the thing was. Remember: AI can't fact-check the
+  answer, but for simple questions it's OK. See if you can confirm its answer through a non-AI source.
+</p>
+<h3 id="use-2-for-pattern-matching">
+  Use 2: For pattern matching
+</h3>
+<p>
+  If you've written a couple lines of code that work for <code>EQ</code>, you can get Copilot (or ChatGPT) to write
+  the same lines but for <code>NE</code>, <code>GT</code>, etc.
+</p>
+<h3 id="use-3-for-a-skeleton">
+  Use 3: For a skeleton
+</h3>
+<p>
+  If you're writing some code, and you want to get a match block, type <code>match</code> and then Copilot will
+  usually fill in the context for you. Note that Rust-Analyzer can do this without an error-rate that exists in
+  AI assistants, but will simply leave match arms as <code>todo!()</code>. AI assistants could fill out simple cases.
+</p>
+<h3> Use 4: For tests</h3>
+<p>
+  Usually writing a comment is enough for an AI to generate you a pretty reasonable test for any functionality you include.
+</p>
+    <h1 id="other-information">
+      Other Information
+    </h1>
+    <h2 id="submission">
+      Submission
+    </h2>
+    <p>
+      See the instructions down the bottom of the page.
+    </p>
+    <h2 id="using-other-crates">
+      Using Other Crates
+    </h2>
+    <p>
+      We are happy for you to use any crate that has been published on crates.io under three conditions:
+    </p>
+    <ol>
+      <ul>
+        The crate must not have been authored by anyone else in the course.
+      </ul>
+      <ul>
+        The crate must have at least 1000 downloads, excluding the last 30 days.
+      </ul>
+      <ul>
+        The crate must not impose license restrictions which require you to share your own code.
+      </ul>
+    </ol>
+    <p>
+      If you are in doubt (or think these restrictions unfairly constrain you from using a reasonable crate), ask
+      on the course forum.
+    </p>
+    <h2 id="marking-scheme">
+      Marking Scheme
+    </h2>
+    <p>
+      There are 3 things on which you will be marked:
+    </p>
+    <ul>
+      <li>Mechanical Style (10% of the total marks for this assignment.)
+      </li>
+      <li>Functional Correctness (40% of the total marks for this assignment times the percentage of the assignment completed)
+      </li>
+      <li>Idiomatic Design (50% of the total marks for this assignment, times the percentage of the assignment completed)
+      </li>
+    </ul>
+    <p>
+      And a detailed analysis is shown below:
+    </p>
+    <h4>
+      1. Mechanical Style (10%):
+    </h4>
+    <p>
+      We will look at your crates, and make sure they:
+    </p>
+    <ul>
+      <li>Compile, with no warnings or errors.
+      </li>
+      <li>Raise no issues with <code>6991 cargo clippy</code>.
+      </li>
+      <li>Are formatted with <code>rustfmt</code> (you can run <code>6991 cargo fmt</code> to auto-format your crate).
+      </li>
+      <li>Have any tests written for them pass.
+      </li>
+    </ul>
+    <p>
+      If they do all of the above, you get full marks. Otherwise, we will award partial marks. This is meant to be the
+      "easy marks" of programming.
+    </p>
+    <h4>
+      2. Functional Correctness (40%):
+    </h4>
+    <p>
+      You should pass the provided test cases. We will vary the test case very slightly during marking,
+      to ensure you haven't just hard-coded things; but we're not going to do anything that's not just
+      changing around some commands and re-ordering things.
+    </p>
+    <h4>
+      3. Idiomatic Design (50%):
+    </h4>
+    <p>
+      Your code should be well designed. This is where we will spend most of our time when marking. To help you, we
+      have provided "design excellence" suggestions, which are ideas to make your design really excellent. You
+      don't have to do them, but they would be good ways of getting a great design.
+    </p>
+    <p>
+      The following list of properties will be marked in your program:
+    </p>
+    <ul>
+      <li>Code is abstracted appropriately.
+      </li>
+      <li>Types are used appropriately to express data in the program.
+      </li>
+      <li>The design does not impose unnecessary constraints on either the caller or callee through borrowing,
+      lifetimes or ownership.
+      </li>
+      <li>Uses traits sensibly to add expressiveness and avoid unnecessary code.
+      </li>
+      <li>Data structures used are appropriate to store data.
+      </li>
+      <li>Functions perform error handling; cases that are expected do not panic.
+      </li>
+      <li>Code is sensibly organised, and split into appropriate modules.
+      </li>
+      <li>Documentation, where provided, is correct and readable.
+      </li>
+      <li>(optional) Uses external crates effectively to achieve the above goals.
+      </li>
+      <li>(optional) Where code is designed in a sub-optimal way, comments about how to improve it are made under
+      "Design Limitations".
+      </li>
+    </ul>
+    <p>
+      <b>IMPORTANT:</b> your marks for the assignment <b>are not</b> the percentage of tests which you pass.
+      We'll scale the tests to fit in with the weights described above.
+    </p>
+    <p>
+      You <em>must</em> complete the checklist of the
+      <code>mark_request</code> faithfully.
+      if you do not fill in the file, you may receive reduced Idiomaitc Design Marks.
+    </p>
+    <p>
+      Your mark will be calculated based on the feedback you have received:
+    </p>
+    <table class="table table-striped">
+      <tbody><tr>
+        <td>
+          100% of available marks
+        </td>
+        <td>
+          Very little negative feedback is given on the above criteria; and a
+          design excellence suggestion is implemented.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          85% of available marks
+        </td>
+        <td>
+          Some minor comments are made about some of the above criteria. Above this mark,
+          one design excellence suggestion will have been implemented.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          75% of available marks
+        </td>
+        <td>
+          Major comments are made about one or two criteria, with multiple small comments in different areas.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          65% of available marks
+        </td>
+        <td>
+          Major comments are made about three or more criteria.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          50% of available marks
+        </td>
+        <td>
+          Many areas have major comments made.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          below 50% of available marks
+        </td>
+        <td>
+          Assignments in this category are likely written as "translations from C", and ignore many Rust features
+          and design patterns.
+        </td>
+      </tr>
+    </tbody></table>
+    <p>
+
+    </p>
+    <p>
+      Note that the following penalties apply to your total mark for plagiarism:
+    </p>
+    <table class="table table-bordered table-striped">
+      <tbody><tr>
+        <td>
+          0 for the assignment
+        </td>
+        <td>
+          Knowingly providing your work to anyone and it is subsequently submitted (by anyone).
+        </td>
+      </tr>
+      <tr>
+        <td>
+          0 for the assignment
+        </td>
+        <td>
+          Submitting any other persons work. This includes joint work.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          0 FL for COMP6991
+        </td>
+        <td>
+          Paying another person to complete work. Submitting another persons work without their consent.
+        </td>
+      </tr>
+    </tbody></table>
+
+    <h1 id="formal-stuff">Formal Stuff</h1>
+
+    <h2 id="assignment-conditions">
+      Assignment Conditions
+    </h2>
+    <ul>
+      <li>
+        <p>
+          <strong>Joint work</strong> is <strong>not permitted</strong> on this assignment.
+        </p>
+        <p>
+          This is an individual assignment.
+        </p>
+        <p>
+          The work you submit must be entirely your own work. Submission of any work even partly written by any
+          other person is not permitted.
+        </p>
+        <p>
+          The only exception being if you use small amounts (&lt; 10 lines) of general purpose code (not specific
+          to the assignment) obtained from a site such as Stack Overflow or other publicly available resources. You
+          should attribute the source of this code clearly in an accompanying comment.
+        </p>
+        <p>
+          Assignment submissions will be examined, both automatically and manually for work written by others.
+        </p>
+        <p>
+          Do not request help from anyone other than the teaching staff of COMP6991.
+        </p>
+        <p>
+          Do not post your assignment code to the course forum.
+        </p>
+        <p>
+          <strong>Rationale:</strong> &nbsp;this assignment is an individual piece of work. It is designed to
+          develop the skills needed to produce an entire working program. Using code written by or taken from other
+          people will stop you learning these skills.
+        </p>
+      </li>
+      <li>
+        <p>
+          The use of&nbsp; <strong>code-synthesis tools</strong> is&nbsp;permitted&nbsp;on this assignment, however
+          beware -- the code it creates can be subtly broken or introduce design flaws. It is your job to figure
+          out what code is good. Your code is your responsibility. If your AI assistant blatantly plagiarises code
+	  from another author which you then submit, you will be held accountable.
+        </p>
+        <p>
+          <strong>Rationale:</strong> &nbsp;this assignment is intended to mimic the real world. These tools are
+          available in the real world. However, you must be careful to use these tools cautiously and ethically.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Sharing, publishing, distributing</strong> &nbsp;your assignment work is&nbsp; <strong>not
+          permitted</strong>.
+        </p>
+        <p>
+          Do not provide or show your assignment work to any other person, other than the teaching staff of
+          COMP6991. For example, do not share your work with friends.
+        </p>
+        <p>
+          Do not publish your assignment code via the internet. For example, do not place your assignment in a
+          public GitHub repository. You can publish Workshops or Labs (after they are due), but assignments are
+          large investments for the course and worth a significant amount; so publishing them makes it harder for
+          us and tempts future students.
+        </p>
+        <p>
+          <strong>Rationale:</strong> &nbsp;by publishing or sharing your work you are facilitating other students
+          to use your work, which is not permitted. If they submit your work, you may become involved in an
+          academic integrity investigation.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Sharing, publishing, distributing your assignment work after the completion of
+          COMP6991</strong> &nbsp;is&nbsp; <strong>not permitted</strong> .
+        </p>
+        <p>
+          For example, do not place your assignment in a public GitHub repository after COMP6991 is over.
+        </p>
+        <p>
+          <strong>Rationale:</strong> COMP6991 sometimes reuses assignment themes, using similar concepts
+          and content. If students in future terms can find your code and use it, which is not permitted, you may
+          become involved in an academic integrity investigation.
+        </p>
+      </li>
+    </ul>
+    <p>
+      Violation of the above conditions may result in an academic integrity investigation with possible penalties,
+      up to and including a mark of 0 in COMP6991 and exclusion from UNSW.
+    </p>
+    <p>
+      Relevant scholarship authorities will be informed if students holding scholarships are involved in an
+      incident of plagiarism or other misconduct. If you knowingly provide or show your assignment work to another
+      person for any reason, and work derived from it is submitted - you may be penalised, even if the work was
+      submitted without your knowledge or consent. This may apply even if your work is submitted by a third party
+      unknown to you.
+    </p>
+    <p>
+      If you have not shared your assignment, you will not be penalised if your work is taken without your consent
+      or knowledge.
+    </p>
+    <p>
+      For more information, read the <a href="https://www.gs.unsw.edu.au/policy/documents/studentcodepolicy.pdf">UNSW Student Code</a>, or contact
+      <a href="mailto:cs6991:cse.unsw.edu.au">the course account</a>.
+    </p>
+  
+
+
+
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    
+        
+            
+            
+        
+    
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+        <p>
+            When you are finished working on this exercise, you must submit your work by running <code>give</code>:
+
+        
+</p><pre is="tty"><kbd is="sh">6991 give-crate</kbd>
+</pre>
+        
+
+        
+          
+          <p>
+          The due date for this exercise is
+          <strong>Week 7 Wednesday 22:00:00</strong>.
+        
+
+        </p><p>
+        You must run <code>give</code>
+        before <strong>Week 7 Wednesday 22:00:00</strong>
+        to obtain the marks for this exercise.
+
+        Note that this is an individual exercise;
+        the work you submit with <code>give</code> must be entirely your own.
+    
+
+    
+    
+
+</p></section>
+
+</div> <!-- big col -->
+<div class="d-none d-lg-block col-lg-2">
+    <nav id="toc" data-toggle="toc"><ul class="nav navbar-nav"><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#assignment-1">Assignment 1</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#rslogo">RSLogo</a><ul class="nav navbar-nav"><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#an-introduction-to-the-logo-language">An Introduction to the logo language:</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#an-introduction-to-unsvg">An Introduction to Unsvg</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#how-your-program-will-work">How your program will work</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#design-excellence">
+  Design Excellence
+</a></li></ul></li><li><a class="nav-link active" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#the-tasks-to-complete">The Tasks To Complete</a><ul class="nav navbar-nav"><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#part-1-turtle-control-20">
+  Part 1: Turtle Control (20%)
+</a></li><li><a class="nav-link active" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#part-2-variables-and-queries-10">
+  Part 2: Variables and Queries (20%)
+</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#part-3-ifs-while-20">
+  Part 3: IFs, WHILE, [ ] (20%)
+</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#part-4-implementing-maths-and-comparisons-using-a-stack-20">
+  Part 4: Implementing Maths and Comparisons using a Stack (20%)
+</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#part-5-logo-defined-procedures-20">
+  Part 5: Logo Defined Procedures (20%)
+</a></li></ul></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#common-questions">
+  Common Questions
+</a><ul class="nav navbar-nav"><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#how-can-i-design-this-assignment">
+  How can I design this assignment?
+</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#how-much-should-i-plan-before-starting-the-assignment">
+  How much should I plan before starting the assignment?
+</a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#can-i-use-ai">Can I use AI?</a></li></ul></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#other-information">
+      Other Information
+    </a><ul class="nav navbar-nav"><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#submission">
+      Submission
+    </a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#using-other-crates">
+      Using Other Crates
+    </a></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#marking-scheme">
+      Marking Scheme
+    </a></li></ul></li><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#formal-stuff">Formal Stuff</a><ul class="nav navbar-nav"><li><a class="nav-link" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/assignment/01#assignment-conditions">
+      Assignment Conditions
+    </a></li></ul></li></ul></nav>
+</div>
+
+</div> <!-- big row -->
+
+<script>
+    $(function() {
+    var navSelector = "#toc";
+    var $myNav = $(navSelector);
+    Toc.init($myNav);
+    $("body").scrollspy({
+      target: navSelector
+    });
+  });
+
+// This code ensures the ToC will also change tabs as necessary.
+
+window.addEventListener('hashchange', () => accessRightSection());
+async function accessRightSection() {
+    const id =  `#subsets_${location.hash.split(".")[0].split('#')[1]}`;
+    const tabButton = document.querySelector(`a.nav-link[href="${id}"][role="tab"]`);
+    if (tabButton) {
+        tabButton.click();
+        tabButton.scrollIntoView();
+        await new Promise(r => setTimeout(r, 200));
+        window.location.assign(location.hash);
+    }
+}
+</script>
+
+
+
+
+            
+    </div>
+</div></main>
+<footer class="mt-3 pt-3 bg-dark text-center no-print">
+    <p class="text-muted">
+        <strong>COMP6991 23T3: Solving Modern Programming Problems with Rust</strong>
+        is brought to you by <br>
+        the <a href="https://www.cse.unsw.edu.au/">School of Computer Science and Engineering</a><br>
+        at the <a href="https://www.unsw.edu.au/">University of New South Wales</a>, Sydney.<br>
+        For all enquiries, please email the class account at
+        <a href="mailto:cs6991@cse.unsw.edu.au">cs6991@cse.unsw.edu.au</a><br>
+
+        <small>CRICOS Provider 00098G</small>
+
+        
+        <a class="float-right mr-3 text-muted" href="https://dvorak.cse.unsw.edu.au/~cs6991/23T3/tutor">
+            Login as tutor
+        </a>
+        
+    </p>
+</footer>
+
+
+
+</body></html>
