@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
+#echo "" 
 # Config
 CXX=clang++
-CXXFLAGS="-Wall -Wextra -O0 -g -fno-exceptions -fno-rtti -std=c++23"
+CXXFLAGS="-Wall -Wextra -O0 -g -fno-exceptions -fno-rtti -fdiagnostics-color=always -std=c++23"
+# LDFLAGS="-lraylib -lm -ldl -lpthread -lGL -lX11"
 SRC_DIR=./
 BUILD_DIR=build
 OUT=app

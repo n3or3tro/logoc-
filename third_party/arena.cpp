@@ -7,17 +7,16 @@
 
 #include "arena.hpp"
 
-
-// Arena* g_temp_allocator;
-
 Arena* arena_new(size_t data_length) {
     auto arena = (Arena*)(malloc(sizeof(Arena)));
-    
+
     arena->offset = arena->length = data_length;
     return arena;
 }
 
-void arena_free_all(Arena* arena) { arena->offset = 0; }
+void arena_free_all(Arena* arena) {
+    arena->offset = 0;
+}
 
 // Just double the underlying data length.
 // void arena_resize(Arena* arena) { realloc(arena->data, arena->length * 3); }

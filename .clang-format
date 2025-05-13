@@ -1,32 +1,3 @@
-# IndentWidth: 4
-# TabWidth: 4
-# UseTab: Never
-
-# ColumnLimit: 120  # Set line length limit
-# BreakBeforeBraces: Attach  # Braces on the same line for functions and multi-line control statements
-
-# AllowShortIfStatementsOnASingleLine: true  # Allow one-line `if` statements
-# AllowShortFunctionsOnASingleLine: Inline  # Allow one-line function definitions
-
-# SpaceBeforeParens: ControlStatements  # No space before parens in control statements (e.g., `if`)
-# SpacesInAngles: false  # No spaces in angle brackets for templates
-
-# PointerAlignment: Left  # Align pointers to the left (e.g., `int* ptr`)
-# DerivePointerAlignment: false  # Do not automatically adjust pointer alignment
-
-# AlignConsecutiveDeclarations: true  # Align consecutive variable declarations
-# AlignConsecutiveAssignments: true  # Align consecutive assignments
-# AlignOperands: true  # Align operands in binary expressions
-# AlignAfterOpenBracket: true  # Align parameters in function calls and function definitions
-# AlignTrailingComments: true  # Align trailing comments
-
-# SortIncludes: true  # Sort `#include` statements
-# IncludeBlocks: Preserve  # Preserve block grouping for `#include` statements
-
-# IndentCaseLabels: true  # Indent case labels in `switch` statements
-
-
-
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
